@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Results - Spam & Threat Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Spam & Threat Detection</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    {% if 'user_id' in session %}
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('scan') }}">Scan</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="results-section">
+        <div class="container">
+            <h2>Scan Results</h2>
+            
+            <div class="result-summary {% if result.is_threat %}threat{% else %}safe{% endif %}">
+                <div class="result-icon">
+                    {% if result.is_threat %}
+                        ⚠️
+                    {% else %}
+                        ✅
+                    {% endif %}
+                </div>
+                <div class="result-text">
+                    <h3>
+                        {% if result.is_threat %}
+                            Threat Detected!
+                        {% else %}
+                            Content is Safe
+                        {% endif %}
+                    </h3>
+                    <p>Confidence: {{ result.confidence_score }}%</p>
+                </div>
+            </div>
+            
+            <div class="result-details">
+                <h3>Analysis Details</h3>
+                
+                <div class="detail-item">
+                    <strong>Scan Type:</strong> 
+                    <span>{{ result.scan_type|capitalize }}</span>
+                </div>
+                
+                {% if result.is_threat %}
+                <div class="detail-item">
+                    <strong>Threat Type:</strong> 
+                    <span>{{ result.threat_type|capitalize }}</span>
+                </div>
+                {% endif %}
+                
+                <div class="detail-item">
+                    <strong>Confidence Score:</strong> 
+                    <span>{{ result.confidence_score }}%</span>
+                </div>
+                
+                <div class="detail-item">
+                    <strong>Scanned Content:</strong>
+                    <div class="scanned-content">
+                        {% if result.scan_type == 'url' %}
+                            <a href="#" class="url-display">{{ result.content }}</a>
+                        {% else %}
+                            <pre>{{ result.content }}</pre>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            {% if result.is_threat %}
+            <div class="recommendations">
+                <h3>Recommendations</h3>
+                <ul>
+                    {% if result.scan_type == 'email' %}
+                        <li>Do not reply to this email</li>
+                        <li>Do not click on any links or download attachments</li>
+                        <li>Report the email as spam/phishing to your email provider</li>
+                        <li>Delete the email from your inbox</li>
+                    {% elif result.scan_type == 'message' %}
+                        <li>Do not reply to this message</li>
+                        <li>Block the sender's number</li>
+                        <li>Report the message to your mobile carrier</li>
+                        <li>Delete the message</li>
+                    {% elif result.scan_type == 'url' %}
+                        <li>Do not visit this website</li>
+                        <li>Do not enter any personal information if you've already visited</li>
+                        <li>Run a virus scan on your device if you've visited the site</li>
+                        <li>Report the URL to your browser or anti-virus provider</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <div class="action-buttons">
+                <a href="{{ url_for('scan') }}" class="btn primary">Scan Another</a>
+                {% if 'user_id' in session %}
+                <a href="{{ url_for('dashboard') }}" class="btn secondary">View Dashboard</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Spam & Threat Detection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

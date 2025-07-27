@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Spam & Threat Detection</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Spam & Threat Detection</h1>
+            <nav>
+                <ul>
+                    <li><a href="home">Home</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="scan.html">Scan</a></li>
+                    <li><a href="chat.html" class="active">Chat</a></li>
+                    <li><a href="dashboard.html">Logout</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="chat-section">
+        <div class="container">
+            <h2>Secure Chat</h2>
+            <p>All messages are automatically scanned for spam and threats.</p>
+            
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be displayed here -->
+                    <div class="system-message">
+                        <p>Welcome to the secure chat! All messages are automatically scanned for spam and threats.</p>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <form id="chatForm">
+                        <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off">
+                        <button type="submit" class="btn primary">Send</button>
+                    </form>
+                    <div id="scanStatus" class="scan-status"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Spam & Threat Detection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>

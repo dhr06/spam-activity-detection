@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Content - Spam & Threat Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Spam & Threat Detection</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    {% if 'user_id' in session %}
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('scan') }}" class="active">Scan</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="scan-section">
+        <div class="container">
+            <h2>Scan for Threats</h2>
+            
+            <div class="scan-tabs">
+                <a href="{{ url_for('scan_email') }}" class="tab {% if scan_type == 'email' %}active{% endif %}">Email</a>
+                <a href="{{ url_for('scan_message') }}" class="tab {% if scan_type == 'message' %}active{% endif %}">Message</a>
+                <a href="{{ url_for('scan_url') }}" class="tab {% if scan_type == 'url' %}active{% endif %}">URL</a>
+            </div>
+            
+            <div class="scan-form-container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <form action="{{ url_for('scan') }}" method="post" class="scan-form">
+                    <input type="hidden" name="scan_type" value="{{ scan_type or 'email' }}">
+                    
+                    <div class="form-group">
+                        <label for="content">
+                            {% if scan_type == 'email' %}
+                                Paste Email Content:
+                            {% elif scan_type == 'message' %}
+                                Paste Message Content:
+                            {% elif scan_type == 'url' %}
+                                Enter URL:
+                            {% else %}
+                                Paste Content to Scan:
+                            {% endif %}
+                        </label>
+                        <textarea id="content" name="content" rows="10" required placeholder="{% if scan_type == 'url' %}https://example.com{% else %}Paste content here...{% endif %}"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn primary">Scan Now</button>
+                </form>
+            </div>
+            
+            <div class="scan-info">
+                <h3>Tips for Scanning</h3>
+                <ul>
+                    {% if scan_type == 'email' %}
+                        <li>Include the email headers for more accurate detection</li>
+                        <li>Paste the entire email content including subject and body</li>
+                        <li>Don't click on suspicious links in the email</li>
+                    {% elif scan_type == 'message' %}
+                        <li>Include the full message text</li>
+                        <li>Add the sender's phone number if available</li>
+                        <li>Don't respond to suspicious messages</li>
+                    {% elif scan_type == 'url' %}
+                        <li>Enter the complete URL including http:// or https://</li>
+                        <li>Don't visit suspicious URLs directly</li>
+                        <li>Be cautious of shortened URLs</li>
+                    {% else %}
+                        <li>Include as much context as possible</li>
+                        <li>Don't interact with suspicious content</li>
+                        <li>Save a copy of the content for your records</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Spam & Threat Detection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
