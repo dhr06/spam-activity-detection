@@ -26,18 +26,16 @@
     <section class="dashboard-section">
         <div class="container">
             <h2>Your Dashboard</h2>
-            <p>Welcome back, {{ session.get('username', 'User') }}!</p>
+            <p>Welcome back!</p>
             
             <div class="dashboard-stats">
                 <div class="stat-card">
-                    <h3>Recent Scans</h3>
-                    <p class="stat-number">{{ history|length }}</p>
+                    <p class="stat-number"></p>
                 </div>
             </div>
             
             <div class="recent-history">
                 <h3>Recent Scan History</h3>
-                {% if history %}
                 <div class="history-table-container">
                     <table class="history-table">
                         <thead>
@@ -50,29 +48,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for item in history %}
+                           
                             <tr class="{% if item.is_threat %}threat-row{% endif %}">
-                                <td>{{ item.scan_date.strftime('%Y-%m-%d %H:%M') }}</td>
-                                <td>{{ item.scan_type|capitalize }}</td>
+                                <td></td>
+                                <td></td>
                                 <td class="content-cell">
-                                    <div class="truncated-content">{{ item.content[:50] }}{% if item.content|length > 50 %}...{% endif %}</div>
+                                    <div class="truncated-content"></div>
                                 </td>
                                 <td>
-                                    {% if item.is_threat %}
-                                    <span class="threat-badge">Threat: {{ item.threat_type|capitalize }}</span>
-                                    {% else %}
+                                   
+                                    <span class="threat-badge">Threat: </span>
+                                    
                                     <span class="safe-badge">Safe</span>
-                                    {% endif %}
+                                    
                                 </td>
-                                <td>{{ item.confidence_score }}%</td>
+                                <td></td>
                             </tr>
-                            {% endfor %}
+                           
                         </tbody>
                     </table>
                 </div>
-                {% else %}
+                
                 <p class="no-data">You haven't performed any scans yet.</p>
-                {% endif %}
+                
             </div>
         </div>
     </section>
