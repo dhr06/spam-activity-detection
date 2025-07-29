@@ -34,28 +34,23 @@
             </div>
             
             <div class="scan-form-container">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert {{ category }}">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
                 
+                            <div class="alert {{ category }}">{{ message }}</div>
+                       
                 <form action="{{ url_for('scan') }}" method="post" class="scan-form">
                     <input type="hidden" name="scan_type" value="{{ scan_type or 'email' }}">
                     
                     <div class="form-group">
                         <label for="content">
-                            {% if scan_type == 'email' %}
+                            
                                 Paste Email Content:
-                            {% elif scan_type == 'message' %}
+                          
                                 Paste Message Content:
-                            {% elif scan_type == 'url' %}
+                           
                                 Enter URL:
-                            {% else %}
+                           
                                 Paste Content to Scan:
-                            {% endif %}
+                           
                         </label>
                         <textarea id="content" name="content" rows="10" required placeholder="{% if scan_type == 'url' %}https://example.com{% else %}Paste content here...{% endif %}"></textarea>
                     </div>
@@ -71,19 +66,19 @@
                         <li>Include the email headers for more accurate detection</li>
                         <li>Paste the entire email content including subject and body</li>
                         <li>Don't click on suspicious links in the email</li>
-                    {% elif scan_type == 'message' %}
+                   
                         <li>Include the full message text</li>
                         <li>Add the sender's phone number if available</li>
                         <li>Don't respond to suspicious messages</li>
-                    {% elif scan_type == 'url' %}
+                   
                         <li>Enter the complete URL including http:// or https://</li>
                         <li>Don't visit suspicious URLs directly</li>
                         <li>Be cautious of shortened URLs</li>
-                    {% else %}
+                   
                         <li>Include as much context as possible</li>
                         <li>Don't interact with suspicious content</li>
                         <li>Save a copy of the content for your records</li>
-                    {% endif %}
+                    
                 </ul>
             </div>
         </div>
