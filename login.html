@@ -1,70 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Spam & Threat Detection</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8" />
+  <title>Login / Signup Slide with Animation</title>
+  <link rel="stylesheet" href="login.css" />
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Spam & Threat Detection</h1>
-            <nav>
-                <ul>
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    {% if 'user_id' in session %}
-                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ url_for('scan') }}">Scan</a></li>
-                    <li><a href="{{ url_for('chat') }}">Chat</a></li>
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                    {% else %}
-                    <li><a href="{{ url_for('login') }}" class="active">Login</a></li>
-                    <li><a href="{{ url_for('register') }}">Register</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <section class="auth-section">
-        <div class="auth-container">
-            <h2>Login to Your Account</h2>
-            
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert {{ category }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            
-            <form action="{{ url_for('login') }}" method="post">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                
-                <button type="submit" class="btn primary" style="width: 100%;">Login</button>
-            </form>
-            
-            <div style="text-align: center; margin-top: 1.5rem;">
-                <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
-            </div>
-        </div>
-    </section>
+<canvas class="snowoverlay"></canvas>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Spam & Threat Detection. All rights reserved.</p>
-        </div>
-    </footer>
+<div class="container" id="container">
+  <div class="form-container sign-up-container">
+    <form action="#">
+      <h1>Create Account</h1>
+      <div class="social-icons">🔵 🔴 ⚫</div>
+      <span>or use your email for registration</span>
+      <input type="text" placeholder="Name" />
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+      <button>Sign Up</button>
+    </form>
+  </div>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <div class="form-container sign-in-container">
+    <form onsubmit="return false;">
+      <h1>Welcome Back!</h1>
+      <span>To stay connected, please login with your info</span>
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+      <button><a herf= "https://classroom.google.com/u/0/">Sign In</a></button>
+    </form>
+  </div>
+
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Welcome Back!</h1>
+        <p>To keep connected, please login here</p>
+        <button class="ghost" id="signIn">Sign In</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>Hello, Friend!</h1>
+        <p>Enter your personal details to start your journey with us</p>
+        <button class="ghost" id="signUp">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="login.js"></script>
 </body>
 </html>
