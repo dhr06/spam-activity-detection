@@ -65,3 +65,35 @@ document.getElementById('signUp').addEventListener('click', () => {
 document.getElementById('signIn').addEventListener('click', () => {
   container.classList.remove("right-panel-active");
 });
+
+// ------------------
+// Sign Up form validation and redirect
+
+// Dummy "database" of registered emails (simulate)
+const registeredUsers = ['test@example.com', 'user@example.com'];
+
+const signUpForm = document.getElementById('signUpForm');
+
+if (signUpForm) {
+  signUpForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = this.querySelector('input[placeholder="Name"]').value.trim();
+    const email = this.querySelector('input[type="email"]').value.trim();
+    const password = this.querySelector('input[type="password"]').value;
+
+    if (!name || !email || !password) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    if (registeredUsers.includes(email)) {
+      alert('This email is already registered. Please use another email.');
+      return;
+    }
+
+    registeredUsers.push(email); // Simulate registration
+    alert('Registration successful! Redirecting to home page...');
+    window.location.href = 'index.html'; // Change to your actual home page URL
+  });
+}
