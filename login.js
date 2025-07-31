@@ -57,43 +57,30 @@ function drawSnowflakes() {
 
 drawSnowflakes();
 
-// Panel slider control
-const container = document.getElementById('container');
-document.getElementById('signUp').addEventListener('click', () => {
-  container.classList.add("right-panel-active");
-});
-document.getElementById('signIn').addEventListener('click', () => {
-  container.classList.remove("right-panel-active");
-});
-
-// ---------
 // Dummy user data (simulate database)
 const dummyUser = {
   email: "dhruvraj0602@gmail.com",
   password: "123456789"
 };
 
-const signUpForm = document.getElementById('signUpForm');
+const signInForm = document.getElementById('signInForm');
 
-if (signUpForm) {
-  signUpForm.addEventListener('submit', function(e) {
+if (signInForm) {
+  signInForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const name = this.querySelector('input[placeholder="Name"]').value.trim();
     const email = this.querySelector('input[type="email"]').value.trim();
     const password = this.querySelector('input[type="password"]').value;
 
-    if (!name || !email || !password) {
-      alert('Please fill in all fields.');
+    if (!email || !password) {
+      alert('Please fill in both email and password.');
       return;
     }
 
-    // Check if input matches dummy user data exactly
     if (email === dummyUser.email && password === dummyUser.password) {
-      alert('Registration successful! Redirecting to home page...');
-      window.location.href = 'https://dhr06.github.io/spam-activity-detection/'; 
+      window.location.href = 'dashboard.html'; // redirect on success
     } else {
-      alert('Registration failed: Email or password does not match the required data.');
+      alert('Incorrect email or password.');
     }
   });
 }
