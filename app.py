@@ -82,7 +82,7 @@ def home():
 def dashboard():
     if 'user_id' not in session:
         flash('Please log in to access the dashboard', 'warning')
-        return redirect(url_for('login'))
+        return redirect(login.html)
     
     # Get user's scan history
     conn = get_db_connection()
@@ -97,7 +97,7 @@ def dashboard():
     
     return render_template('dashboard.html', history=history)
 
-@app.route('/scan', methods=['GET', 'POST'])
+@app.route('scan', methods=['GET', 'POST'])
 def scan():
     if request.method == 'POST':
         scan_type = request.form.get('scan_type')
@@ -184,7 +184,7 @@ def scan_url():
     return render_template('scan.html', scan_type='url')
 
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def login/register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -219,7 +219,6 @@ def login():
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
-def register():
     if request.method == 'POST':
         username = request.form.get('username')
         email = request.form.get('email')
