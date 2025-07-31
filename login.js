@@ -66,11 +66,12 @@ document.getElementById('signIn').addEventListener('click', () => {
   container.classList.remove("right-panel-active");
 });
 
-// ------------------
-// Sign Up form validation and redirect
-
-// Dummy "database" of registered emails (simulate)
-const registeredUsers = ['test@example.com', 'user@example.com'];
+// ---------
+// Dummy user data (simulate database)
+const dummyUser = {
+  email: "dhruvraj0602@gmail.com",
+  password: "123456789"
+};
 
 const signUpForm = document.getElementById('signUpForm');
 
@@ -87,13 +88,12 @@ if (signUpForm) {
       return;
     }
 
-    if (registeredUsers.includes(email)) {
-      alert('This email is already registered. Please use another email.');
-      return;
+    // Check if input matches dummy user data exactly
+    if (email === dummyUser.email && password === dummyUser.password) {
+      alert('Registration successful! Redirecting to home page...');
+      window.location.href = 'home.html'; // Change to your actual home page URL
+    } else {
+      alert('Registration failed: Email or password does not match the required data.');
     }
-
-    registeredUsers.push(email); // Simulate registration
-    alert('Registration successful! Redirecting to home page...');
-    window.location.href = 'index.html'; // Change to your actual home page URL
   });
 }
