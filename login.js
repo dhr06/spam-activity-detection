@@ -91,7 +91,7 @@ if (signUpForm) {
     // Check if input matches dummy user data exactly
     if (email === dummyUser.email && password === dummyUser.password) {
       alert('Registration successful! Redirecting to home page...');
-      window.location.href = 'index.html'; 
+      window.location.href = 'https://dhr06.github.io/spam-activity-detection/'; 
     } else {
       alert('Registration failed: Email or password does not match the required data.');
     }
